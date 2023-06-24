@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="/assets/sidebar.css">
+
+<div class="sidebar" id="left_sidebar">
+    <h2>Projects filter</h2>
+    <ul>
+        {% for item in site.data.projectlist.docs %}
+        <li><a onclick="filter_divs('{{ item.project }}', '{{ item.posttitle }}')">{{ item.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="sidebar" id="inline_sidebar">
+    <h2>Projects filter</h2>
+    <ul>
+        {% for item in site.data.projectlist.docs %}
+        <li><a onclick="filter_divs('{{ item.project }}', '{{ item.posttitle }}')">{{ item.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,55 @@
+---
+layout: default
+custom-js: true
+---
+<script>
+  function filter_divs(div_name, posttile) {
+    var divs = document.getElementsByTagName("li");
+    for (var i = 0; i < divs.length; i++) {
+      var name = divs[i].className;
+
+      if (name.startsWith("filterable_")) {
+        if (divs[i].className.indexOf(div_name) == -1) {
+          divs[i].style.display = "none";
+        }
+        else {
+          divs[i].style.display = "block";
+        }
+      }
+    }
+
+    document.getElementById("post_intro").innerHTML = posttile + ":";
+  }
+</script>
+
+{%- include navigation_home.html -%}
+
+<div class="home">
+  {%- if page.title -%}
+  <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+  {%- if site.posts.size > 0 -%}
+  <h2 id="post_intro" class="post-list-heading">Showing all posts:</h2>
+  <ul class="post-list">
+    {%- for post in site.posts -%}
+    <li class="filterable_{{post.project}}_{{forloop.index}}">
+      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      <span class="post-meta">{{ post.date | date: date_format }}</span>
+      <h3>
+        <a class="post-link" href="{{ post.url | relative_url }}">
+          {{ post.title | escape }}
+        </a>
+      </h3>
+      {%- if site.show_excerpts -%}
+      {{ post.excerpt }}
+      {%- endif -%}
+    </li>
+    {%- endfor -%}
+  </ul>
+
+  {%- endif -%}
+
+</div>

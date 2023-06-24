@@ -1,0 +1,105 @@
+---
+layout: default
+---
+
+<link rel="stylesheet" href="/assets/sidebar.css">
+<div class="sidebar" id="left_sidebar"></div>
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        {{ page.date | date: date_format }}
+      </time>
+      {%- if page.author -%}
+      • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card"
+          itemprop="name">{{ page.author | escape }}</span></span>
+      {%- endif -%}
+    </p>
+  </header>
+
+  <div class="sidebar" id="inline_sidebar"></div>
+
+  <div id="content" class="post-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  {%- if site.disqus.shortname -%}
+  {%- include disqus_comments.html -%}
+  {%- endif -%}
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>
+
+<script>
+  function populate_sidebar(sidebar_id, highlight) {
+    const divElement = document.getElementById('content');
+    const headingElements = divElement.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    const sidebarElement = document.getElementById(sidebar_id);
+
+    for (headingElement of headingElements) {
+      const headingText = headingElement.innerText;
+      const headingId = headingElement.id;
+      const headingLevel = +headingElement.tagName.charAt(1);
+
+      const listItemElement = document.createElement('li');
+      listItemElement.style.paddingLeft = `${+headingLevel * 10}px`;
+      listItemElement.innerHTML = `<a href="#${headingId}">${headingText}</a>`;
+
+      sidebarElement.appendChild(listItemElement);
+    }
+
+
+    const listItemElements = sidebarElement.querySelectorAll('li');
+    const headingOffsets = Array.from(headingElements).map(headingElement => {
+      return {
+        id: headingElement.id,
+        offsetTop: headingElement.offsetTop
+      };
+    });
+
+    if (highlight) {
+
+      function highlightListItem() {
+        const scrollPosition = window.scrollY + 60;
+        const activeHeading = headingOffsets.find(({ offsetTop }) => offsetTop > scrollPosition);
+
+        listItemElements.forEach(listItemElement => {
+          const anchorElement = listItemElement.querySelector('a');
+          if (activeHeading && anchorElement.getAttribute('href') === `#${activeHeading.id}`) {
+            listItemElement.classList.add('active');
+          } else {
+            listItemElement.classList.remove('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', highlightListItem);
+      window.scrollTo(0, 1);
+    }
+  }
+
+  populate_sidebar("left_sidebar", true);
+  populate_sidebar("inline_sidebar", true);
+
+  window.addEventListener('scroll', function () {
+    if (window.innerWidth < 1000) {
+      return;
+    }
+
+    var sidebar = document.getElementById('left_sidebar');
+    if (sidebar == null) {
+      sidebar = document.getElementById('left_sidebar_fixed');
+    }
+    var sidebarTop = sidebar.offsetTop;
+    var viewportTop = window.pageYOffset;
+
+    if (viewportTop >= sidebarTop) {
+      sidebar.id = 'left_sidebar_fixed';
+    } else {
+      sidebar.id = 'left_sidebar';
+    }
+  })
+</script>
