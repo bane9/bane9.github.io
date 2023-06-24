@@ -3,6 +3,7 @@
     width: 15%;
     height: 100vh;
     float: left;
+    display: block;
 }
 
 #left_sidebar_fixed {
@@ -11,6 +12,7 @@
     height: 100vh;
     float: left;
     top: 7.5px;
+    display: block;
 }
 
 .post {
@@ -19,12 +21,12 @@
 }
 
 #inline_sidebar {
-    visibility: hidden;
     display: none;
 }
 
 #root_bullet_point {
     cursor: pointer;
+    user-select: none;
 }
 
 #root_bullet_point:hover {
@@ -54,19 +56,24 @@
 
 .sidebar li {
     list-style-type: none;
+    user-select: none;
 }
 
 #home_li {
     list-style-type: initial;
+    user-select: none;
 }
 
 @media screen and (max-width: 1000px) {
     #left_sidebar {
-        visibility: hidden;
+        display: none;
+    }
+
+    #left_sidebar_fixed {
+        display: none;
     }
 
     #inline_sidebar {
-        visibility: visible;
         display: block;
     }
 

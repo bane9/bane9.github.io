@@ -1,0 +1,25 @@
+#right_sidebar {
+    position: absolute;
+    width: 15%;
+    max-width: fit-content;
+    height: 100vh;
+    right: 5%;
+    float: right;
+    display: block;
+}
+
+#right_sidebar_inline {
+    display: none;
+}
+
+@media screen and (max-width: 1500px) {
+    #right_sidebar {
+        display: none;
+    }
+
+    #right_sidebar_inline {
+        display: block;
+        position: inherit;
+        bottom: auto;
+    }
+}

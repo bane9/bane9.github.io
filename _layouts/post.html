@@ -3,9 +3,15 @@ layout: default
 ---
 
 <link rel="stylesheet" href="/assets/sidebar.css">
-<div class="sidebar" id="left_sidebar">
-
+<link rel="stylesheet" href="/assets/project_bar.css">
+<div class="sidebar" id="left_sidebar"></div>
+{% if page.project-link %}
+<div id="right_sidebar">
+  Repository:
+  <a href="https://github.com/{{ page.project-link }}"><img
+      src="https://gh-card.dev/repos/{{ page.project-link }}.svg"></a>
 </div>
+{% endif %}
 
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
@@ -22,6 +28,14 @@ layout: default
     </p>
   </header>
 
+  {% if page.project-link %}
+  <div id="right_sidebar_inline">
+    Repository:<br>
+    <a href="https://github.com/{{ page.project-link }}"><img
+        src="https://gh-card.dev/repos/{{ page.project-link }}.svg"></a>
+  </div>
+  <br>
+  {% endif %}
   <div class="sidebar" id="inline_sidebar"></div>
 
   <div id="content" class="post-content e-content" itemprop="articleBody">
@@ -157,8 +171,10 @@ layout: default
       }
     }
 
-    window.addEventListener('scroll', highlightListItem);
-    window.scrollTo(0, 1);
+    if (!collapse) {
+      window.addEventListener('scroll', highlightListItem);
+      window.scrollTo(0, 1);
+    }
 
     if (collapse) {
       const children = rootNode.querySelectorAll('li');
