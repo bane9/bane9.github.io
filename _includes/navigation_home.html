@@ -4,7 +4,8 @@
     <h2>Projects filter</h2>
     <ul>
         {% for item in site.data.projectlist.docs %}
-        <li><a onclick="filter_divs('{{ item.project }}', '{{ item.posttitle }}')">{{ item.title }}</a></li>
+        <li id="home_li"><a onclick="filter_divs('{{ item.project }}', '{{ item.posttitle }}')">{{ item.title }}</a>
+        </li>
         {% endfor %}
     </ul>
 </div>
@@ -13,7 +14,8 @@
     <h2>Projects filter</h2>
     <ul>
         {% for item in site.data.projectlist.docs %}
-        <li><a onclick="filter_divs('{{ item.project }}', '{{ item.posttitle }}')">{{ item.title }}</a></li>
+        <li id="home_li"><a onclick="filter_divs('{{ item.project }}', '{{ item.posttitle }}')">{{ item.title }}</a>
+        </li>
         {% endfor %}
     </ul>
 </div>

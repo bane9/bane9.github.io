@@ -3,7 +3,9 @@ layout: default
 ---
 
 <link rel="stylesheet" href="/assets/sidebar.css">
-<div class="sidebar" id="left_sidebar"></div>
+<div class="sidebar" id="left_sidebar">
+
+</div>
 
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
@@ -34,7 +36,9 @@ layout: default
 </article>
 
 <script>
-  function populate_sidebar(sidebar_id, highlight) {
+  var idx = 0;
+
+  function populate_sidebar(sidebar_id, collapse = false) {
     const divElement = document.getElementById('content');
     const headingElements = divElement.querySelectorAll('h1, h2, h3, h4, h5, h6');
     const sidebarElement = document.getElementById(sidebar_id);
@@ -43,18 +47,91 @@ layout: default
       return;
     }
 
-    for (headingElement of headingElements) {
-      const headingText = headingElement.innerText;
-      const headingId = headingElement.id;
-      const headingLevel = +headingElement.tagName.charAt(1);
+    const headingMap = {};
 
-      const listItemElement = document.createElement('li');
-      listItemElement.style.paddingLeft = `${+headingLevel * 10}px`;
-      listItemElement.innerHTML = `<a href="#${headingId}">${headingText}</a>`;
+    var bullet_point = document.createElement('span');
+    bullet_point.innerHTML = "▶ Table of Contents:";
+    bullet_point.id = "root_bullet_point"
+    const rootNode = document.createElement('ul');
+    rootNode.appendChild(bullet_point);
+    rootNode.className = "root_node";
+    rootNode.id = "root_node_id";
+    rootNode.innerHTML = "";
 
-      sidebarElement.appendChild(listItemElement);
+    bullet_point.addEventListener('click', (event) => {
+      event.preventDefault();
+      const children = rootNode.querySelectorAll('li');
+      for (child of children) {
+        child.style.display = child.style.display === 'none' ? 'block' : 'none';
+      }
+    });
+
+    sidebarElement.appendChild(bullet_point);
+    sidebarElement.appendChild(rootNode);
+
+    for (const headingElement of headingElements) {
+      var bullet_point = document.createElement('span');
+      bullet_point.className = "bullet_point";
+      bullet_point.innerHTML = "▶ ";
+
+      var headingText = headingElement.innerText;
+      if (headingElement.id.indexOf('heading-idx-') === -1) {
+        headingElement.id = `heading-idx-${idx++}`;
+      }
+      var headingId;
+      var headingLevel;
+      var listItemElement;
+
+      headingText = headingElement.innerText;
+      if (headingElement.id.indexOf('heading-idx-') === -1) {
+        headingElement.id = `heading-idx-${idx++}`;
+      }
+      headingId = headingElement.id;
+      headingLevel = +headingElement.tagName.charAt(1);
+      listItemElement = document.createElement('li');
+
+      listItemElement.appendChild(bullet_point);
+
+      const linkElement = document.createElement('a');
+      linkElement.href = `#${headingId}`;
+      linkElement.textContent = headingText;
+      listItemElement.appendChild(linkElement);
+
+      if (headingLevel === 1) {
+        rootNode.appendChild(listItemElement);
+      } else {
+        const parentHeadingLevel = headingLevel - 1;
+        const parentHeading = headingMap[parentHeadingLevel];
+
+        if (parentHeading) {
+          const parentListElement = parentHeading.querySelector('ul');
+          if (parentListElement) {
+            parentListElement.appendChild(listItemElement);
+          } else {
+            const newListElement = document.createElement('ul');
+            newListElement.appendChild(listItemElement);
+            parentHeading.appendChild(newListElement);
+            if (collapse) {
+              newListElement.style.display = 'none';
+            }
+          }
+        }
+      }
+
+      headingMap[headingLevel] = listItemElement;
+
+      const parentLinkElement = listItemElement.parentNode.previousElementSibling;
+      bullet_point.addEventListener('click', (event) => {
+        event.preventDefault();
+        const parentLinkElement = event.target;
+        const parentListItemElement = parentLinkElement.parentNode;
+        const childListElement = parentListItemElement.querySelector('ul');
+        if (!childListElement) {
+          return;
+        }
+        childListElement.style.display = childListElement.style.display === 'none' ? 'block' : 'none';
+      });
     }
-
 
     const listItemElements = sidebarElement.querySelectorAll('li');
     const headingOffsets = Array.from(headingElements).map(headingElement => {
@@ -64,26 +141,33 @@ layout: default
       };
     });
 
-    if (highlight) {
+    function highlightListItem() {
+      const scrollPosition = window.pageYOffset;
+      const activeHeading = headingOffsets.find(({ offsetTop }) => offsetTop > scrollPosition);
 
-      function highlightListItem() {
-        const scrollPosition = window.scrollY + 60;
-        const activeHeading = headingOffsets.find(({ offsetTop }) => offsetTop > scrollPosition);
+      for (listItemElement of listItemElements) {
+        const anchorElement = listItemElement.querySelector('a');
+        var bullet_point = listItemElement.querySelector('span');
 
-        listItemElements.forEach(listItemElement => {
-          const anchorElement = listItemElement.querySelector('a');
-          if (activeHeading && anchorElement.getAttribute('href') === `#${activeHeading.id}`) {
-            listItemElement.classList.add('active');
-          } else {
-            listItemElement.classList.remove('active');
-          }
-        });
+        if (activeHeading && anchorElement.getAttribute('href') === `#${activeHeading.id}`) {
+          bullet_point.className = 'bullet_point_selected';
+        } else {
+          bullet_point.className = 'bullet_point';
+        }
       }
+    }
 
-      window.addEventListener('scroll', highlightListItem);
-      window.scrollTo(0, 1);
+    window.addEventListener('scroll', highlightListItem);
+    window.scrollTo(0, 1);
+
+    if (collapse) {
+      const children = rootNode.querySelectorAll('li');
+      for (child of children) {
+        child.style.display = 'none';
+      }
     }
   }
+
 
   function add_scroll_listener() {
     const divElement = document.getElementById('content');
@@ -113,7 +197,7 @@ layout: default
     })
   }
 
-  populate_sidebar("left_sidebar", true);
+  populate_sidebar("left_sidebar");
   populate_sidebar("inline_sidebar", true);
 
   add_scroll_listener();
