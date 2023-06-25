@@ -22,7 +22,17 @@ custom-js: true
   }
 </script>
 
-{%- include navigation_home.html -%}
+<link rel="stylesheet" href="/assets/sidebar.css">
+
+<div class="sidebar" id="left_sidebar">
+  <h2>Projects filter</h2>
+  <ul>
+    {% for item in site.data.projectlist.docs %}
+    <li id="home_li"><a onclick="filter_divs('{{ item.project }}', '{{ item.posttitle }}')">{{ item.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 
 <div class="home">
   {%- if page.title -%}
@@ -30,6 +40,16 @@ custom-js: true
   {%- endif -%}
 
   {{ content }}
+
+  <div class="sidebar" id="inline_sidebar">
+    <h2>Projects filter</h2>
+    <ul>
+      {% for item in site.data.projectlist.docs %}
+      <li id="home_li"><a onclick="filter_divs('{{ item.project }}', '{{ item.posttitle }}')">{{ item.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 
   {%- if site.posts.size > 0 -%}
   <h2 id="post_intro" class="post-list-heading">Showing all posts:</h2>

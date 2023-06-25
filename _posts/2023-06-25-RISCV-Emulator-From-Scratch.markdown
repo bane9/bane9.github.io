@@ -115,4 +115,4 @@ The system we are implementing is a RISC-V RV64GC system. This means that it has
 
 ---
 
-This has been an introduction to the series. In the next part, we will set up our development environment, and start implementing the CPU core. Join me in part 2!
+This has been an introduction to the series. In the next part, we will set up our development environment, and start implementing the CPU core. Join me in part 1 (starting here as 0, obiously)!
