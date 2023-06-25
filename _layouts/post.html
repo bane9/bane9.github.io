@@ -47,7 +47,23 @@ layout: default
   {%- endif -%}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+  <div style="width: 100%; height: auto;">
+    {% if page.previous-post %}
+    {% assign previous_post = site.posts | where: "title", page.previous-post | first %}
+    <a href="{{ previous_post.url | relative_url }}">← {{ previous_post.title }}</a>
+    {% else %}
+    <a href="/">← Home</a>
+    {% endif %}
+
+    {% if page.next-post %}
+    {% assign next_post = site.posts | where: "title", page.next-post | first %}
+    <a style="float: right;" href="{{ next_post.url | relative_url }}">{{ next_post.title }} →</a>
+    {% else %}
+    <a style="float: right;" href="/">Home →</a>
+    {% endif %}
+  </div>
 </article>
+
 
 <script>
   var idx = 0;
@@ -64,7 +80,7 @@ layout: default
     const headingMap = {};
 
     var bullet_point = document.createElement('span');
-    bullet_point.innerHTML = "▶ Table of Contents:";
+    bullet_point.innerHTML = collapse ? "▶ Table of Contents:" : "▼ Table of Contents:";
     bullet_point.id = "root_bullet_point"
     const rootNode = document.createElement('ul');
     rootNode.appendChild(bullet_point);
@@ -75,8 +91,19 @@ layout: default
     bullet_point.addEventListener('click', (event) => {
       event.preventDefault();
       const children = rootNode.querySelectorAll('li');
+      var bullet_point = rootNode.parentElement.querySelector('span');
+      var hidden = false
       for (child of children) {
-        child.style.display = child.style.display === 'none' ? 'block' : 'none';
+
+        if (child.style.display === 'none') {
+          child.style.display = 'block';
+          bullet_point.innerHTML = "▼ Table of Contents:";
+        }
+        else {
+          child.style.display = 'none';
+          bullet_point.innerHTML = "▶ Table of Contents:";
+        }
+
       }
     });
 
@@ -86,7 +113,7 @@ layout: default
     for (const headingElement of headingElements) {
       var bullet_point = document.createElement('span');
       bullet_point.className = "bullet_point";
-      bullet_point.innerHTML = "▶ ";
+      bullet_point.innerHTML = collapse ? "▶" : "▼";
 
       var headingText = headingElement.innerText;
       if (headingElement.id.indexOf('heading-idx-') === -1) {
@@ -143,11 +170,26 @@ layout: default
         if (!childListElement) {
           return;
         }
-        childListElement.style.display = childListElement.style.display === 'none' ? 'block' : 'none';
+        var bullet_point = parentListItemElement.querySelector('span');
+        if (childListElement.style.display === 'none') {
+          childListElement.style.display = 'block';
+          bullet_point.innerHTML = "▼ ";
+        }
+        else {
+          childListElement.style.display = 'none';
+          bullet_point.innerHTML = "▶ ";
+        }
       });
     }
 
     const listItemElements = sidebarElement.querySelectorAll('li');
+
+    for (li of listItemElements) {
+      if (li.querySelector('ul') === null) {
+        li.querySelector('span').innerHTML = "▣ ";
+      }
+    }
+
     const headingOffsets = Array.from(headingElements).map(headingElement => {
       return {
         id: headingElement.id,
@@ -156,7 +198,7 @@ layout: default
     });
 
     function highlightListItem() {
-      const scrollPosition = window.pageYOffset;
+      const scrollPosition = window.pageYOffset - 5;
       const activeHeading = headingOffsets.find(({ offsetTop }) => offsetTop > scrollPosition);
 
       for (listItemElement of listItemElements) {
