@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Writing RISCV Emulator that can boot Linux"
+title:  "Writing a RISCV Emulator that can boot Linux"
 date:   2023-06-25 16:00:00 +0200
 project: rv64gc_emu
 project-link: rv64gc-emu

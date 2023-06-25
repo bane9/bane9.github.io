@@ -5,15 +5,7 @@ layout: default
 {%- assign github_username=site.data.socials.github -%}
 
 <link rel="stylesheet" href="/assets/sidebar.css">
-<link rel="stylesheet" href="/assets/project_bar.css">
 <div class="sidebar" id="left_sidebar"></div>
-{% if page.project-link %}
-<div id="right_sidebar">
-  Repository:
-  <a href="https://github.com/{{ github_username }}/{{ page.project-link }}"><img
-      src="https://gh-card.dev/repos/{{ github_username }}/{{ page.project-link }}.svg"></a>
-</div>
-{% endif %}
 
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
@@ -31,7 +23,7 @@ layout: default
   </header>
 
   {% if page.project-link %}
-  <div id="right_sidebar_inline">
+  <div>
     Repository:<br>
     <a href="https://github.com/{{ github_username }}/{{ page.project-link }}"><img
         src="https://gh-card.dev/repos/{{ github_username }}/{{ page.project-link }}.svg"></a>
