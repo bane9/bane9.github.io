@@ -12,7 +12,7 @@ For the past several months I have been working on a RISC-V emulator, mainly ins
 
 I'm happy to say, all of it was achieved. Now I'm writing this blog to help people to do the same thing. The end goal is to document everything needed to be done to achieve this:
 
-<iframe style="width: 753px; height: 443px; float: center; border: none;" src="https://user-images.githubusercontent.com/29211832/247784659-0b25afea-3062-4471-b5e4-7e286e6425f1.mp4" allowfullscreen></iframe>
+<video controls="controls" src="https://user-images.githubusercontent.com/29211832/247784659-0b25afea-3062-4471-b5e4-7e286e6425f1.mp4" allowfullscreen></video>
 
 This will entail a series of blogposts that will eventually contain the following stuff (subject to change):
 
