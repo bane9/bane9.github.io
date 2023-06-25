@@ -1,8 +1,11 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
 ---
 
-asdadsasd
+Hi there, and welcome to my blog.
+
+Using the projects filter you can show only posts about the post series you are interested in, otherwise you can click "All posts" to view all posts in chronologic order.
+
+For more infomation about me and for contact details, you can use the "About" tab.
+
+Hope you enjoy the content!

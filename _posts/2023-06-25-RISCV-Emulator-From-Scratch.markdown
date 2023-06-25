@@ -1,10 +1,9 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
-date:   2023-06-23 22:19:24 +0200
+title:  "Writing RISCV Emulator that can boot Linux"
+date:   2023-06-25 16:00:00 +0200
 project: rv64gc_emu
 project-link: rv64gc-emu
-next-post: qweqwe
 ---
 
 # Test
