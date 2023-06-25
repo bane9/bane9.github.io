@@ -10,7 +10,7 @@ layout: default
 {% if page.project-link %}
 <div id="right_sidebar">
   Repository:
-  <a href="https://github.com/{{ site.github_username }}/{{ page.project-link }}"><img
+  <a href="https://github.com/{{ github_username }}/{{ page.project-link }}"><img
       src="https://gh-card.dev/repos/{{ github_username }}/{{ page.project-link }}.svg"></a>
 </div>
 {% endif %}
@@ -67,6 +67,13 @@ layout: default
     <a style="float: right;" href="/">Home →</a>
     {% endif %}
   </div>
+
+  <script src="https://giscus.app/client.js" data-repo="bane9/bane9.github.io" data-repo-id="R_kgDOJzR5Jg"
+    data-category="General" data-category-id="DIC_kwDOJzR5Js4CXdBE" data-mapping="pathname" data-strict="0"
+    data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="dark" data-lang="en"
+    crossorigin="anonymous" async>
+    </script>
+
 </article>
 
 <script>
