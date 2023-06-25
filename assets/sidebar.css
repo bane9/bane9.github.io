@@ -4,6 +4,7 @@
     height: 100vh;
     float: left;
     display: block;
+    max-width: fit-content;
 }
 
 #left_sidebar_fixed {
@@ -13,6 +14,7 @@
     float: left;
     top: 7.5px;
     display: block;
+    max-width: fit-content;
 }
 
 .post {
