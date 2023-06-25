@@ -13,9 +13,9 @@ I make a living as a computer systems engineer, and I'm truly passionate about t
 Find me on:
 
 ![](https://github.com/favicon.ico){: width="16" height="16" style="background-color:white;" }
-[bane9](https://github.com/bane9)
+[{{ site.data.socials.github }}](https://github.com/{{ site.data.socials.github }})
 
 ![](https://linkedin.com/favicon.ico){: width="16" height="16" }
-[Linkedin](https://www.linkedin.com/in/branislav-brzak-21874a180/)
+[Linkedin](https://linkedin.com/in/{{ site.data.socials.linkedin }})
 
-📧 [bbranislav99@gmail.com](bbranislav99@gmail.com)
+📧 [{{ site.data.socials.email }}](mailto:{{ site.data.socials.email }})

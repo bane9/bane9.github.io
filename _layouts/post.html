@@ -2,14 +2,16 @@
 layout: default
 ---
 
+{%- assign github_username=site.data.socials.github -%}
+
 <link rel="stylesheet" href="/assets/sidebar.css">
 <link rel="stylesheet" href="/assets/project_bar.css">
 <div class="sidebar" id="left_sidebar"></div>
 {% if page.project-link %}
 <div id="right_sidebar">
   Repository:
-  <a href="https://github.com/{{ page.project-link }}"><img
-      src="https://gh-card.dev/repos/{{ page.project-link }}.svg"></a>
+  <a href="https://github.com/{{ site.github_username }}/{{ page.project-link }}"><img
+      src="https://gh-card.dev/repos/{{ github_username }}/{{ page.project-link }}.svg"></a>
 </div>
 {% endif %}
 
@@ -31,8 +33,8 @@ layout: default
   {% if page.project-link %}
   <div id="right_sidebar_inline">
     Repository:<br>
-    <a href="https://github.com/{{ page.project-link }}"><img
-        src="https://gh-card.dev/repos/{{ page.project-link }}.svg"></a>
+    <a href="https://github.com/{{ github_username }}/{{ page.project-link }}"><img
+        src="https://gh-card.dev/repos/{{ github_username }}/{{ page.project-link }}.svg"></a>
   </div>
   <br>
   {% endif %}
@@ -47,6 +49,9 @@ layout: default
   {%- endif -%}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+
+  {% include scroll_to_top.html %}
+
   <div style="width: 100%; height: auto;">
     {% if page.previous-post %}
     {% assign previous_post = site.posts | where: "title", page.previous-post | first %}
@@ -63,7 +68,6 @@ layout: default
     {% endif %}
   </div>
 </article>
-
 
 <script>
   var idx = 0;
