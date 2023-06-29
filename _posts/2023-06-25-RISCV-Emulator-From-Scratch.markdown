@@ -4,6 +4,7 @@ title:  "Writing a RISC-V Emulator that can boot Linux"
 date:   2023-06-25 16:00:00 +0200
 project: rv64gc_emu
 project-link: rv64gc-emu
+next-post: "RISC-V Emulator part 1: Getting started"
 ---
 
 # Introduction
@@ -42,12 +43,6 @@ of this project is to primarily be an educational tool, and there are other proj
 - A step by step tutorial. This will be more of a documentation of what I did, and I will try to explain the concepts as I go along. This series is meant as an overall guide, and requires some pre-existing knowledge with C++ and computer architecture.
 
 With that out of the way, lets dive in!
-
-# What is RISC-V?
-
-RISC-V is a revolutionary computer architecture that stands apart from traditional approaches. Unlike complex instruction set computers (CISC), it embraces a reduced instruction set design, where a compact and finely tuned collection of instructions takes center stage. The hallmark of RISC-V lies in its optimized instruction pipeline and abundance of registers, enabling an efficient execution with minimal clock cycles per instruction (CPI). Embracing a load/store architecture, it accesses memory through dedicated instructions rather than incorporating it into most instructions. Additionally, RISC-V prides itself on its streamlined single-cycle instructions. 
-
-More about risc-v can be found [here](https://riscv.org/). And we will cover more of it's details as we go along.
 
 # Basic computer architecture
 
