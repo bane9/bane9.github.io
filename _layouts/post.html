@@ -45,19 +45,20 @@ layout: default
 
   {% include scroll_to_top.html %}
 
-  <div style="width: 100%; height: auto;">
+  <div style="display: flex; justify-content: space-between; width: 100%;">
     {% if page.previous-post %}
     {% assign previous_post = site.posts | where: "title", page.previous-post | first %}
-    <a href="{{ previous_post.url | relative_url }}">← {{ previous_post.title }}</a>
+    <a style="max-width: 50%; text-align: left;" href="{{ previous_post.url | relative_url }}">← {{ previous_post.title
+      }}</a>
     {% else %}
-    <a href="/">← Home</a>
+    <a style="max-width: 50%; text-align: left;" href="/">← Home</a>
     {% endif %}
 
     {% if page.next-post %}
     {% assign next_post = site.posts | where: "title", page.next-post | first %}
-    <a style="float: right;" href="{{ next_post.url | relative_url }}">{{ next_post.title }} →</a>
+    <a style="max-width: 50%; text-align: right;" href="{{ next_post.url | relative_url }}">{{ next_post.title }} →</a>
     {% else %}
-    <a style="float: right;" href="/">Home →</a>
+    <a style="max-width: 50%; text-align: right;" href="/">Home →</a>
     {% endif %}
   </div>
 
@@ -117,7 +118,7 @@ layout: default
     for (const headingElement of headingElements) {
       var bullet_point = document.createElement('span');
       bullet_point.className = "bullet_point";
-      bullet_point.innerHTML = collapse ? "▶" : "▼";
+      bullet_point.innerHTML = "▶";
 
       var headingText = headingElement.innerText;
       if (headingElement.id.indexOf('heading-idx-') === -1) {
@@ -156,9 +157,6 @@ layout: default
             const newListElement = document.createElement('ul');
             newListElement.appendChild(listItemElement);
             parentHeading.appendChild(newListElement);
-            if (collapse) {
-              newListElement.style.display = 'none';
-            }
           }
         }
       }
@@ -194,28 +192,36 @@ layout: default
       }
     }
 
-    const headingOffsets = Array.from(headingElements).map(headingElement => {
-      return {
-        id: headingElement.id,
-        offsetTop: headingElement.offsetTop
-      };
-    });
+    const headingOffsets = Array.from(headingElements);
 
     function highlightListItem() {
-      const scrollPosition = window.pageYOffset - 5;
-      const activeHeading = headingOffsets.find(({ offsetTop }) => offsetTop > scrollPosition);
+      const scrollPosition = window.scrollY - 10;
+      let activeHeading = headingOffsets.find((elem) => {
+        return (elem.offsetTop > scrollPosition) && (elem.offsetTop < (scrollPosition + 50));
+      });
+
+      if (!activeHeading) {
+        if (scrollPosition < 10) {
+          activeHeading = headingOffsets[0];
+        } else if (scrollPosition > headingOffsets[headingOffsets.length - 1].offsetTop) {
+          activeHeading = headingOffsets[headingOffsets.length - 1];
+        } else {
+          return;
+        }
+      }
 
       for (listItemElement of listItemElements) {
         const anchorElement = listItemElement.querySelector('a');
-        var bullet_point = listItemElement.querySelector('span');
+        const bulletPoint = listItemElement.querySelector('span');
 
         if (activeHeading && anchorElement.getAttribute('href') === `#${activeHeading.id}`) {
-          bullet_point.className = 'bullet_point_selected';
+          bulletPoint.className = 'bullet_point_selected';
         } else {
-          bullet_point.className = 'bullet_point';
+          bulletPoint.className = 'bullet_point';
         }
       }
     }
+
 
     if (!collapse) {
       window.addEventListener('scroll', highlightListItem);
