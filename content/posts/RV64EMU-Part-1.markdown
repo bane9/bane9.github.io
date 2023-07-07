@@ -2,13 +2,11 @@
 layout: post
 title:  "RISC-V Emulator part 1: Getting started"
 date:   2023-06-25 16:00:00 +0200
-project: rv64gc_emu
-project-link: rv64gc-emu
-previous-post: "Writing a RISC-V Emulator that can boot Linux"
-next-post: "RISC-V Emulator part 2: Instruction fetching and decoding"
+tags: ["rv64gc_emu", "RISC-V", "RISC-V Emulator"]
+gh_link: rv64gc-emu
+previous_post: /posts/riscv-emulator-from-scratch
+next_post: /posts/rv64emu-part-2
 ---
-
-# Introduction
 
 In this post, we will set up the project environment and write the basic code needed to get started. This project will be written in C++, and will be using CMake as the build system. An Ubuntu machine will be assumed for some of the steps, but the steps should be similar for other Linux distributions and macOS.
 
@@ -109,11 +107,11 @@ int main(int argc, char** argv)
 
 In the previous post, this image was displayed:
 
-![RV64GC Emu System Architecture]({{ "/post_assets/system_arch.png" | relative_url }}){: style=" display: block; margin-left: auto;margin-right: auto;"}
+![RV64GC Emu System Architecture](/posts/images/system_arch.png#center)
 
 Right now, we wan't to implement the `System Bus`. The bus itself acts as a communication line between the CPU and the peripherals, and between the peripherals and other peripherals. The way it works is that each peripheral will have a start and an end address. For example, in the following image:
 
-![MMIO example]({{ "/post_assets/mmio.png" | relative_url }}){: style=" display: block; margin-left: auto;margin-right: auto;"}
+![RV64GC Emu System Architecture](/posts/images/mmio.png#center)
 
 Here we can see that each peripheral has it's start and end address. When we, for example, want to talk to Peripheral 2, we need to specify an address that is between `0x5000` and `0x9000`. As such, if we want to talk to any other peripheral we need to specify it's own address range. This is called "Memory Mapped IO" or MMIO for short.
 
