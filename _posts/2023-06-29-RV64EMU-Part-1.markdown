@@ -5,6 +5,7 @@ date:   2023-06-25 16:00:00 +0200
 project: rv64gc_emu
 project-link: rv64gc-emu
 previous-post: "Writing a RISC-V Emulator that can boot Linux"
+next-post: "RISC-V Emulator part 2: Instruction fetching and decoding"
 ---
 
 # Introduction

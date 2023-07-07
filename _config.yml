@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Branislav Brzak's blog 
+title: Branislav Brzak's blog
 description: >-
   Welcome to my blog where I delve into the art of low-level programming and explore an array of fascinating topics.
 

@@ -1,15 +1,15 @@
 #left_sidebar {
     position: absolute;
-    max-width: 225px;
+    max-width: 12.5%;
     height: 100vh;
     float: left;
-    display: block;
     margin: auto;
+    display: block;
 }
 
 #left_sidebar_fixed {
     position: fixed;
-    max-width: 225px;
+    max-width: 12.5%;
     height: 100vh;
     float: left;
     top: 7.5px;
@@ -17,10 +17,11 @@
 }
 
 .post {
-    width: 75%;
-    float: right;
+    width: 72.2%;
+    float: left;
     z-index: 1;
     margin: auto;
+    margin-left: 15%;
 }
 
 #inline_sidebar {
@@ -67,7 +68,7 @@
     user-select: none;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1750px) {
     #left_sidebar {
         display: none;
     }
