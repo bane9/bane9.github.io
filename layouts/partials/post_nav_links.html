@@ -1,0 +1,27 @@
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- if and (gt (len $pages) 1) (in $pages . ) }}
+<nav class="paginav">
+  {{- if isset .Params "previous_post" }}
+  <a class="prev" href="{{ .Params.previous_post }}">
+    <span class="title">« {{ with .Site.GetPage .Params.previous_post }}{{ .Title }}{{ end }}</span>
+    <br>
+  </a>
+  {{ else }}
+  <a class="prev" href="/">
+    <span class="title">« Home</span>
+    <br>
+  </a>
+  {{- end }}
+  {{- if isset .Params "next_post" }}
+  <a class="next" href="{{ .Params.next_post }}">
+    <span class="title">{{ with .Site.GetPage .Params.next_post }}{{ .Title }}{{ end }} »</span>
+    <br>
+  </a>
+  {{ else }}
+  <a class="next" href="/">
+    <span class="title">Home »</span>
+    <br>
+  </a>
+  {{- end }}
+</nav>
+{{- end }}

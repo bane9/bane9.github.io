@@ -2,18 +2,16 @@
 layout: post
 title:  "Writing a RISC-V Emulator that can boot Linux"
 date:   2023-06-25 16:00:00 +0200
-project: rv64gc_emu
-project-link: rv64gc-emu
-next-post: "RISC-V Emulator part 1: Getting started"
+tags: ["rv64gc_emu", "RISC-V", "RISC-V Emulator"]
+gh_link: rv64gc-emu
+next_post: /posts/rv64emu-part-1
 ---
-
-# Introduction
 
 For the past several months I have been working on a RISC-V emulator, mainly inspired by [mini-rv32ima](https://github.com/cnlohr/mini-rv32ima). The goal of my project was to create such an emulator myself, but with some key differences: a 64-bit core instead of a 32-bit one, implemnting the FPU, compressed instructions, and a MMU. The end goal was to be able to boot Linux on it as well as have a graphical output that will be used maily to play doom.
 
 I'm happy to say, all of it was achieved. Now I'm writing this blog to help people to do the same thing. The end goal is to document everything needed to be done to achieve this:
 
-<video controls="controls" src="https://user-images.githubusercontent.com/29211832/247784659-0b25afea-3062-4471-b5e4-7e286e6425f1.mp4" allowfullscreen></video>
+<video controls="controls" style="max-width: 100%;" src="https://user-images.githubusercontent.com/29211832/247784659-0b25afea-3062-4471-b5e4-7e286e6425f1.mp4" allowfullscreen></video>
 
 This will entail a series of blogposts that will eventually contain the following stuff (subject to change):
 
@@ -94,7 +92,7 @@ RISC-V is a modular ISA, which means along with the base instruction set (aka RV
 
 # Architecture of the system we are implementing
 
-![RV64GC Emu System Architecture]({{ "/post_assets/system_arch.png" | relative_url }}){: style=" display: block; margin-left: auto;margin-right: auto;"}
+![RV64GC Emu System Architecture](/posts/images/system_arch.png#center)
 
 The system we are implementing is a RISC-V RV64GC system. This means that it has the following features:
 
