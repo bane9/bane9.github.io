@@ -4,7 +4,7 @@ date: 2023-07-15T14:25:58+02:00
 tags: ["rv64gc_emu", "RISC-V", "RISC-V Emulator"]
 gh_link: rv64gc-emu
 previous_post: /posts/rv64emu-part-2
-draft: true
+next_post: /posts/rv64emu-part-4
 ---
 
 In this post, we will start implementing the instruction execution logic. We already fetched the instruction and created a decoder class, now lets tie everything together to ghave RVI fully implemented.
