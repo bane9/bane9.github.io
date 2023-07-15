@@ -4,6 +4,7 @@ date: 2023-07-15T15:21:34+02:00
 tags: ["rv64gc_emu", "RISC-V", "RISC-V Emulator"]
 gh_link: rv64gc-emu
 previous_post: /posts/rv64emu-part-3
+next_post: /posts/rv64emu-part-5
 ---
 
 To test out our emulator, we need to write some assembly and compile it. To do that, we first need to get a compiler toolchain. While we can use pre-compiled ones available on brew/apt, I had bad experience with them being improperly configured or had old builds with certain bugs present. Instead, we will build our own toolchain. 
@@ -42,7 +43,7 @@ Now, lets build it:
 sudo make -j$(nproc)
 ```
 
-And lets add it to our path (assuming bash):
+And lets add it to our PATH (assuming bash):
 
 ```bash
 echo 'export PATH=/opt/riscv/bin:$PATH' >> ~/.bashrc
