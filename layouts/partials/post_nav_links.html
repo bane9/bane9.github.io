@@ -1,5 +1,6 @@
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
 {{- if and (gt (len $pages) 1) (in $pages . ) }}
+{{- if or (isset .Params "previous_post") (isset .Params "next_post") }}
 <nav class="paginav">
   {{- if isset .Params "previous_post" }}
   <a class="prev" href="{{ .Params.previous_post }}">
@@ -24,4 +25,5 @@
   </a>
   {{- end }}
 </nav>
+{{- end }}
 {{- end }}
