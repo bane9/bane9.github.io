@@ -36,7 +36,7 @@ params:
       url: "https://linkedin.com/in/branislav-brzak-21874a180"
 
     - name: email
-      url: "mailto:bbranislav99@gmail.com"
+      url: "mailto:brzakbranislav@gmail.com"
 
 outputs:
     home:
